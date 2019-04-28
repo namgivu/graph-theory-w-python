@@ -1,4 +1,6 @@
 import unittest
+import textwrap
+from pprint import pformat
 
 from service.graph import Graph
 
@@ -15,8 +17,24 @@ class Test(unittest.TestCase):
             'e': ['c'],
             'f': [],
         }
-        g = Graph(d)
-        vertices=g.get_vertices();          print(f'\nVertices: {vertices}')
-        vertices=g.get_vertices(sort=True); print(  f'          {vertices}')
 
-        edges=g.get_edges(); print(f'\nEdges: {edges}')
+        g = Graph(d)
+        assert g.G == d
+        assert g.V == {'a', 'b', 'c', 'd', 'e', 'f'}
+        assert len(g.E) == 5
+        assert {'a', 'd'} in g.E
+        assert {'b', 'c'} in g.E
+        assert {'c', 'c'} in g.E
+        assert {'c', 'd'} in g.E
+        assert {'c', 'e'} in g.E
+
+        g = Graph(d)
+        v = 'z'; g.add_vertex(v)
+        assert g.G.get('z') == []
+        assert 'z' in g.V
+
+        g = Graph(d)
+        e = {'a','z'}; g.add_edges(e)
+        assert 'z' in g.G.get('a'); assert g.G.get('z') == ['a']
+        assert 'z' in g.V and 'a' in g.V
+        assert e in g.E
