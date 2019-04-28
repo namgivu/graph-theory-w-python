@@ -18,9 +18,14 @@ class Test(unittest.TestCase):
             'f': [],
         }
 
+        # load graph
         g = Graph(d)
-        assert g.G == d
+        assert g.G.keys() == d.keys()
+        for v in g.G.keys():
+            assert set(g.G.get(v)) == set(d.get(v))
+
         assert g.V == {'a', 'b', 'c', 'd', 'e', 'f'}
+
         assert len(g.E) == 5
         assert {'a', 'd'} in g.E
         assert {'b', 'c'} in g.E
@@ -28,11 +33,13 @@ class Test(unittest.TestCase):
         assert {'c', 'd'} in g.E
         assert {'c', 'e'} in g.E
 
+        # add vertex
         g = Graph(d)
         v = 'z'; g.add_vertex(v)
-        assert g.G.get('z') == []
+        assert g.G.get('z') == set()
         assert 'z' in g.V
 
+        # add edge
         g = Graph(d)
         e = {'a','z'}; g.add_edges(e)
         assert 'z' in g.G.get('a'); assert g.G.get('z') == ['a']
