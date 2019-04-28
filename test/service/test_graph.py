@@ -16,5 +16,7 @@ class Test(unittest.TestCase):
             'f': [],
         }
         g = Graph(d)
-        vertices=g.get_vertices();          print(f'Vertices: {vertices}')
-        vertices=g.get_vertices(sort=True); print(f'Vertices: {vertices}')
+        vertices=g.get_vertices();          print(f'\nVertices: {vertices}')
+        vertices=g.get_vertices(sort=True); print(  f'          {vertices}')
+
+        edges=g.get_edges(); print(f'\nEdges: {edges}')
