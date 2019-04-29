@@ -16,15 +16,20 @@ class Graph:
             for v in k_values:
                 self.G[k].add(v)
 
-        #region load vertices
+        self.V = self.parse_vertices()
+        self.E = self.parse_edges()
+
+
+    def parse_vertices(self):
         self.V = set()
         for v in self.G:
             self.V.add(v)
             neighbor_v = self.G.get(v)
             self.V.update(neighbor_v) # neighbor_v aka neighbor vertices of :v # add list to a set ref. https://stackoverflow.com/a/43746275/248616
-        #endregion
+        return self.V
 
-        #region load edges
+
+    def parse_edges(self):
         self.E = list()
         for v in self.G:
             neighbor_v = self.G.get(v) # neighbor_v aka neighbor vertices of :v
@@ -32,14 +37,6 @@ class Graph:
                 e = {v, nv} # e aka edges
                 if e not in self.E:
                     self.E.append(e)
-        #endregion
-
-
-    def get_vertices(self):
-        return self.V
-
-
-    def get_edges(self):
         return self.E
 
 
