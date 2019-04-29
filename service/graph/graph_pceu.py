@@ -1,8 +1,13 @@
-class Graph:
+class GraphPCEU: # PCEU aka python-course.eu
+
+    """ref. https://www.python-course.eu/graphs_python.php"""
 
     G = dict() # G aka graph; { v : {neighbor of v} }
     V = set()  # V aka vertices
     E = list() # E aka edges
+
+
+    #region graph infrastructure
 
     def __init__(self, initial_data:dict):
         self.load(initial_data)
@@ -66,3 +71,9 @@ class Graph:
 
         # update E
         self.E.append(e)
+
+    #endregion graph infrastructure
+
+    #TODO call vertex as node for simpler+shorter name
+    #TODO vertex_exists()
+    #TODO find_neighbor()

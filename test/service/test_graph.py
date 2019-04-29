@@ -8,7 +8,6 @@ from service.graph import Graph
 class Test(unittest.TestCase):
 
     def test(self):
-        """ref. https://www.python-course.eu/graphs_python.php"""
         d = {
             'a': ['d'],
             'b': ['c'],
