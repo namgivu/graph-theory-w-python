@@ -37,7 +37,6 @@ class Test(unittest.TestCase):
 
         # add edge
         g = GraphPCEU(d)
-        g = GraphPCEU(d)
         e = {'a','z'}; g.add_edges(e)
         assert 'z' in g.G.get('a'); assert g.G.get('z') == ['a']
         assert 'z' in g.V and 'a' in g.V
