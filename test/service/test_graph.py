@@ -1,8 +1,5 @@
 import unittest
-import textwrap
-from pprint import pformat
-
-from service.graph import Graph
+from service.graph.graph_pceu import GraphPCEU
 
 
 class Test(unittest.TestCase):
@@ -18,7 +15,7 @@ class Test(unittest.TestCase):
         }
 
         # load graph
-        g = Graph(d)
+        g = GraphPCEU(d)
         assert g.G.keys() == d.keys()
         for v in g.G.keys():
             assert set(g.G.get(v)) == set(d.get(v))
@@ -33,13 +30,14 @@ class Test(unittest.TestCase):
         assert {'c', 'e'} in g.E
 
         # add vertex
-        g = Graph(d)
+        g = GraphPCEU(d)
         v = 'z'; g.add_vertex(v)
         assert g.G.get('z') == set()
         assert 'z' in g.V
 
         # add edge
-        g = Graph(d)
+        g = GraphPCEU(d)
+        g = GraphPCEU(d)
         e = {'a','z'}; g.add_edges(e)
         assert 'z' in g.G.get('a'); assert g.G.get('z') == ['a']
         assert 'z' in g.V and 'a' in g.V
