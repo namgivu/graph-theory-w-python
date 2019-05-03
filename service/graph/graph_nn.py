@@ -37,7 +37,7 @@ def load(init_data:dict):
 
     # load the graph
     global N; N = len(node_names)
-    global A; array1 = [0] * N; A = array1*N
+    global A; A = [ [0 for __ in range(N)] for _ in range(N) ]
     for node_name in init_data:
         i = node_ids[node_name]
         neighbor_node_names = init_data[node_name]
