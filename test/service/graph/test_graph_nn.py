@@ -1,5 +1,7 @@
 import unittest
-import service.graph.graph_nn as GraphNN; G = GraphNN # G defined as short alias
+from service.graph.graph_nn import GraphNN
+
+G = GraphNN() # G defined as short alias
 
 GRAPH_FIXTURE = {
     'a': ['d'],
@@ -35,7 +37,7 @@ class Test(unittest.TestCase):
 
     def test_find_path(self):
         G.load(init_data=GRAPH_FIXTURE)
-        # f='a'; t='b'; ep=['a', 'd', 'c', 'b']; p = G.find_path(f, t); p = [G.node_names[i] for i in p]; assert p == ep
-        # f='a'; t='f'; ep=[];                   p = G.find_path(f, t); p = [G.node_names[i] for i in p]; assert p == ep
-        # f='c'; t='c'; ep=['c'];                p = G.find_path(f, t); p = [G.node_names[i] for i in p]; assert p == ep
+        f='a'; t='b'; ep=['a', 'd', 'c', 'b']; p = G.find_path(f, t); p = [G.node_names[i] for i in p]; assert p == ep
+        f='a'; t='f'; ep=[];                   p = G.find_path(f, t); p = [G.node_names[i] for i in p]; assert p == ep
+        f='c'; t='c'; ep=['c'];                p = G.find_path(f, t); p = [G.node_names[i] for i in p]; assert p == ep
         f='a'; t='a'; ep=['a'];                p = G.find_path(f, t); p = [G.node_names[i] for i in p]; assert p == ep
