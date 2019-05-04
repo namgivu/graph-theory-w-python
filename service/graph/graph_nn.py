@@ -38,8 +38,8 @@ class GraphNN:
         #endregion
 
         # load the graph as A[i,j]
-        N = len(self.node_names)
-        self.A = [[0 for __ in range(N)] for _ in range(N)]
+        self.N = len(self.node_names)
+        self.A = [[0 for __ in range(self.N)] for _ in range(self.N)]
         for node_name in init_data:
             i = self.node_ids[node_name]
             neighbor_node_names = init_data[node_name]
@@ -48,7 +48,7 @@ class GraphNN:
                 self.A[i][j] = 1
                 self.A[j][i] = 1
 
-        # load the graph as G{ node -> neighbor_set }
+        # load the graph as G = { node -> neighbor_set }
         self.G = dict()
         for node_name in init_data:
             i = self.node_ids[node_name]
@@ -98,3 +98,26 @@ class GraphNN:
 
         p = p[::-1]
         return p
+
+
+    def get_trees(self):
+        trees = [None] * self.N
+        tree_count = -1
+        for i in range(self.N):
+            if trees[i] is None:
+                tree_count += 1
+
+                #region get tree from node :i
+                s1 = {i}; s2 = set()
+                while len(s1)>0:
+                    for j in s1:
+                        trees[j] = tree_count
+                        for k in self.G.get(j):
+                            if trees[k] is None:
+                                trees[k] = tree_count
+                                s2.add(k)
+
+                    # repeat with nodes found in :s2
+                    s1 = s2; s2 = set()
+                #endregion
+        return trees
