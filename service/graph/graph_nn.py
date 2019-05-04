@@ -2,7 +2,7 @@ class GraphNN:
 
     N      = 0 # N aka number of node
     A      = [[0 for __ in range(N)] for _ in range(N)] # N*N matrix representing the graph/node-network
-    G      = { 'some-node': {'neighbor0', 'neighbor1', 'neighbor2'} }
+    G      = {'some-node': {'neighbor0', 'neighbor1', 'neighbor2'}}
 
     node_names = dict()
     node_ids   = dict()
@@ -38,26 +38,26 @@ class GraphNN:
         #endregion
 
         # load the graph as A[i,j]
-        N = len(node_names)
-        global A; A = [ [0 for __ in range(N)] for _ in range(N) ]
+        N = len(self.node_names)
+        self.A = [[0 for __ in range(N)] for _ in range(N)]
         for node_name in init_data:
             i = self.node_ids[node_name]
             neighbor_node_names = init_data[node_name]
             for nnn in neighbor_node_names:
                 j = self.node_ids[nnn]
-                A[i][j] = 1
-                A[j][i] = 1
+                self.A[i][j] = 1
+                self.A[j][i] = 1
 
         # load the graph as G{ node -> neighbor_set }
-        global G; G = dict()
+        self.G = dict()
         for node_name in init_data:
             i = self.node_ids[node_name]
-            G[i] = set()
+            self.G[i] = set()
 
             neighbor_node_names = init_data[node_name]
             for nnn in neighbor_node_names:
                 j = self.node_ids[nnn]
-                G[i].add(j)
+                self.G[i].add(j)
 
 
     def find_path(self, from_node_name, to_node_name):
@@ -74,7 +74,7 @@ class GraphNN:
             #region find nodes connected with s1, save to s2
             for i in s1:
                 #region find nodes j connected to i
-                for j in G[i]:
+                for j in self.G[i]:
                     if tr.get(j) is None:
                         tr[j] = i
                         s2.add(j)
