@@ -3,16 +3,21 @@ import unittest
 from service.graph.graph_n import GraphN
 
 
-def load_fixture(g): # g aka graph
-    data = """
+F1 = """
 a b c d e f
 a d
 b c
 c b d e
 d a c
 e c
-    """.strip()
-    lines = data.split('\n')
+""".strip()
+
+
+def load_fixture(g, f):
+    """
+    load graph :g from fixture :f
+    """
+    lines = f.split('\n')
 
     g.load_names(names=lines[0].split(' '))
 
@@ -32,7 +37,7 @@ class Test(unittest.TestCase):
 
     def test_fixture(self):
         g = GraphN()
-        load_fixture(g)
+        load_fixture(g, F1)
         assert g.N == 6
         assert g.s_to_i == {'a':0, 'b':1, 'c':2, 'd':3, 'e':4, 'f':5}
         assert g.A.get(0)
@@ -42,7 +47,7 @@ class Test(unittest.TestCase):
 
     def test_find_path(self):
         g = GraphN()
-        load_fixture(g)
+        load_fixture(g, F1)
 
         p=g.find_path(0,1); assert p==[0,3,2,1]
         p=g.find_path(0,2); assert p==[0,3,2]
