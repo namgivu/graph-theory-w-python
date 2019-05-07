@@ -8,7 +8,7 @@ def load_fixture(g): # g aka graph
 a b c d e f
 a d
 b c
-c b c d e
+c b d e
 d a c
 e c
     """.strip()
@@ -38,3 +38,14 @@ class Test(unittest.TestCase):
         assert g.A.get(0)
         assert g.A[0].get(1) is None
         assert g.A[0][3] == 1
+
+
+    def test_find_path(self):
+        g = GraphN()
+        load_fixture(g)
+
+        p=g.find_path(0,1); assert p==[0,3,2,1]
+        p=g.find_path(0,2); assert p==[0,3,2]
+        p=g.find_path(0,3); assert p==[0,3]
+        p=g.find_path(0,4); assert p==[0,3,2,4]
+        p=g.find_path(0,5); assert p==None
